@@ -143,7 +143,7 @@ class iKohYoung(iData):
         from skimage import io
         import cv2
 
-        data_dir = "/home/sangyun/Datasets/KohYoung/"
+        data_dir = "../data"
         save_train_dir = os.path.join(data_dir, 'train_data')
         save_valid_dir = os.path.join(data_dir, 'valid_data')
 

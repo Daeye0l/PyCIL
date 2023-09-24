@@ -7,7 +7,7 @@ from utils.data import iCIFAR10, iCIFAR100, iImageNet100, iImageNet1000, iKohYou
 from tqdm import tqdm
 
 
-class DataManager(object):
+class DataManager(object): # 데이터셋 이름, 셔플여부, 시드, 초기 클래수 수, 증가 클래스 수
     def __init__(self, dataset_name, shuffle, seed, init_cls, increment):
         self.dataset_name = dataset_name
         self._setup_data(dataset_name, shuffle, seed)
@@ -183,9 +183,10 @@ class DataManager(object):
             train_data, train_targets, trsf, self.use_path
         ), DummyDataset(val_data, val_targets, trsf, self.use_path)
 
+    # 데이터를 설정하는 함수수
     def _setup_data(self, dataset_name, shuffle, seed):
-        idata = _get_idata(dataset_name)
-        idata.download_data()
+        idata = _get_idata(dataset_name) # 원하는 데이터셋 지정
+        idata.download_data() # 데이터셋 다운로드
 
         # Data
         self._train_data, self._train_targets = idata.train_data, idata.train_targets
@@ -266,9 +267,9 @@ class DummyDataset(Dataset):
 def _map_new_class_index(y, order):
     return np.array(list(map(lambda x: order.index(x), y)))
 
-
+# 원하는 데이터셋을 가져오는 함수
 def _get_idata(dataset_name):
-    name = dataset_name.lower()
+    name = dataset_name.lower() # 대문자가 있는 경우 소문자로 변환
     if name == "cifar10":
         return iCIFAR10()
     elif name == "cifar100":
